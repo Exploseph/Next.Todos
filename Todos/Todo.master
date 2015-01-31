@@ -1,0 +1,66 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Todo.master.cs" Inherits="Todo" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="CSS/bootstrap.css" rel="stylesheet" />
+    <link href="CSS/todo.css" rel="stylesheet" />
+</head>
+<body>
+    <form runat="server" id="todosForm" >
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/jquery-1.11.1.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.validate.min.js" />
+                <asp:ScriptReference Path="~/Scripts/knockout-3.2.0.js" />
+                <asp:ScriptReference Path="~/Scripts/todo.client.js" />
+                <asp:ScriptReference Path="~/Scripts/todo.js" />
+                <asp:ScriptReference Path="~/Scripts/validation.js" />
+            </Scripts>
+        </asp:ScriptManager>
+        <nav class="navbar navbar-inverse">            
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Todos</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>                        
+                        <li data-bind="template: 'signupTemplate'"></li>
+                        <li data-bind="template: 'loginTemplate'"></li>
+                        <li data-bind="template: 'signOutTemplate'"></li>                       
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        
+
+        <script id="loginTemplate" type="text/html">            
+            <a data-bind="visible: !isUserLoggedIn()" href="/Account/Login.aspx">Login</a>
+        </script>
+        <script id="signupTemplate" type="text/html">            
+            <a data-bind="visible: !isUserLoggedIn()" href="/Account/Signup.aspx">Sign up</a>
+        </script>
+         <script id="signOutTemplate" type="text/html">            
+            <a data-bind="visible: isUserLoggedIn()" href="#" onclick="javascript:Application.logOut(); return false;">Sign out</a>
+        </script>
+    </form>
+</body>
+</html>
