@@ -1,4 +1,7 @@
-﻿label.valid {
+﻿body {
+}
+
+label.valid {
     width: 24px;
     height: 24px;
     background: url(../imgages/valid.png) center center no-repeat;
@@ -11,9 +14,6 @@ label.error, .errorMessage {
     color: red;
     padding: 2px 8px;
     margin-top: 2px;
-}
-
-body {
 }
 
 .navbar-brand {
