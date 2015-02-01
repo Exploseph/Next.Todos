@@ -5,11 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="CSS/bootstrap.css" rel="stylesheet" />
     <link href="CSS/todo.css" rel="stylesheet" />
+    <link href="CSS/jquery-ui.min.css" rel="stylesheet" />
+    <link href="CSS/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="CSS/jquery-ui.theme.min.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server" id="todosForm" >
@@ -19,9 +21,11 @@
                 <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
                 <asp:ScriptReference Path="~/Scripts/jquery.validate.min.js" />
                 <asp:ScriptReference Path="~/Scripts/knockout-3.2.0.js" />
+                <asp:ScriptReference Path="~/Scripts/knockout-sortable.js" />
                 <asp:ScriptReference Path="~/Scripts/todo.client.js" />
                 <asp:ScriptReference Path="~/Scripts/todo.js" />
                 <asp:ScriptReference Path="~/Scripts/validation.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js" />                       
             </Scripts>
         </asp:ScriptManager>
         <nav class="navbar navbar-inverse">            

@@ -19,3 +19,30 @@ label.error, .errorMessage {
 .navbar-brand {
     font-size: 24pt !important;
 }
+
+.todo-row {
+    margin: 5px;
+    border-radius:5px;
+    border: 1px solid gray;
+    background-color:white;
+    height:40px;    
+}
+
+.todo-container {
+    margin-top:10px;
+}
+
+.todo-checkbox {
+    margin-left: 10px;        
+}
+
+.drag-handle{
+    height: 23px;
+    width: 26px;
+    cursor:move;
+    background-image: url("/images/handle-icon-actions.png");
+}
+
+.empty-message{
+    font-style: italic;
+}
