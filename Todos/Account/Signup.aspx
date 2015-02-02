@@ -26,5 +26,10 @@
             </div>
         </fieldset>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            configureValidation();
+        });
+    </script>
 </asp:Content>
 

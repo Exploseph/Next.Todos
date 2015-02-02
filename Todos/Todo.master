@@ -19,15 +19,15 @@
         <asp:ScriptManager runat="server">
             <Scripts>
                 <asp:ScriptReference Path="~/Scripts/jquery-1.11.1.min.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery.validate.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js" />      
+                <asp:ScriptReference Path="~/Scripts/jquery.cookie.js" />                
                 <asp:ScriptReference Path="~/Scripts/knockout-3.2.0.js" />
                 <asp:ScriptReference Path="~/Scripts/knockout-sortable.js" />
                 <asp:ScriptReference Path="~/Scripts/todo.client.js" />
                 <asp:ScriptReference Path="~/Scripts/todo.js" />
-                <asp:ScriptReference Path="~/Scripts/validation.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js" />                       
-                <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />  
+                <asp:ScriptReference Path="~/Scripts/validation.js" />                                 
+                <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery.validate.min.js" />  
             </Scripts>
         </asp:ScriptManager>
         <nav class="navbar navbar-inverse navbar-fixed-top">            

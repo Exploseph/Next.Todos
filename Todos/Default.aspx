@@ -31,7 +31,7 @@
                             <a href="#" title="Click to edit" data-bind="visible: (description && !description()), click: $root.selectedTodo, css: { completed: is_complete }"><span class="empty-message">click to add description</span></a>
                         </div>
                         <div class="col-md-10 pull-left" data-bind="visibleAndSelect: $root.isTodoSelected($data)">
-                            <input data-bind="value: description, event: { blur: $root.clearTodo, change: $root.itemChanged }" />
+                            <input class="todo-input" data-bind="value: description, event: { blur: $root.clearTodo, change: $root.itemChanged }" />
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ var ERROR_CTL = "errorContainer";
 
 $(document).ready(function () {
     ko.bindingHandlers.sortable.options.handle = ".drag-handle";
-    
+
     ko.bindingHandlers.visibleAndSelect = {
         update: function (element, valueAccessor) {
             ko.bindingHandlers.visible.update(element, valueAccessor);
@@ -20,11 +20,11 @@ $(document).ready(function () {
     };
 
     ko.bindingHandlers.fadeVisible = {
-        init: function (element, valueAccessor) {            
+        init: function (element, valueAccessor) {
             var value = valueAccessor();
             $(element).toggle(ko.utils.unwrapObservable(value));
         },
-        update: function (element, valueAccessor) {            
+        update: function (element, valueAccessor) {
             var value = valueAccessor();
             ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
         }
@@ -60,8 +60,7 @@ function todoViewModel() {
     }
     self.moveCallback = function (args) {
         if (Application.usersTodos().length > 0) {
-            var sortOrder = $.map(Application.usersTodos(), function (val, i) { return val.id; });
-            Application.setTodoOrder(sortOrder);            
+            Application.setTodoOrder();
         }
     }
     self.showCompleted = ko.observable(true);
@@ -183,7 +182,8 @@ Application = {
         return ($.cookie(CSO)) ? JSON.parse($.cookie(CSO)) : null;
     },
 
-    setTodoOrder: function (sortOrder) {
+    setTodoOrder: function () {
+        var sortOrder = $.map(Application.usersTodos(), function (val, i) { return val.id; });
         $.cookie(CSO, JSON.stringify(sortOrder), { expires: 7, path: '/' });
     },
 
@@ -213,10 +213,12 @@ Application = {
                 Application.selectedTodo(obTodo);
 
                 var sortOrder = Application.getTodoOrder();
-                if (sortOrder) {
-                    var newOrder = sortOrder.splice(0, 0, obTodo.id);
-                    Application.setTodoOrder(newOrder);
+                if (sortOrder && sortOrder.length == 0) {
+                    Application.setTodoOrder();
                 }
+
+                var newOrder = sortOrder.splice(0, 0, obTodo.id);
+                Application.setTodoOrder(newOrder);
             },
             error: function () {
                 alert('Error adding todo');

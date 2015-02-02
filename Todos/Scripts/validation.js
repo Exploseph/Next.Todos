@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿function configureValidation() {
     $('#todosForm').validate(
         {
             rules: {
@@ -20,7 +19,7 @@ $(document).ready(function () {
                 .closest('.control-group').removeClass('error').addClass('success');
             }
         });
-});
+}
 
 function getPasswordRules() {
     if (location.pathname.toLowerCase().indexOf("login") != -1) {
