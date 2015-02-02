@@ -31,12 +31,16 @@
                             <a href="#" title="Click to edit" data-bind="visible: (description && !description()), click: $root.selectedTodo, css: { completed: is_complete }"><span class="empty-message">click to add description</span></a>
                         </div>
                         <div class="col-md-10 pull-left" data-bind="visibleAndSelect: $root.isTodoSelected($data)">
-                            <input class="todo-input" data-bind="value: description, event: { blur: $root.clearTodo, change: $root.itemChanged }" />
+                            <input class="todo-input" data-bind="value: description, returnKey: function () { }, event: { blur: $root.clearTodo, change: $root.itemChanged }" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div style="display: none;">
+        <!-- needed to prevent postback when single input is on page and enter key is pressed.-->
+        <input class="todo-input" />
     </div>
 </asp:Content>
 

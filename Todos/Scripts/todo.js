@@ -30,6 +30,18 @@ $(document).ready(function () {
         }
     };
 
+    ko.bindingHandlers.returnKey = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            ko.utils.registerEventHandler(element, 'keydown', function (evt) {
+                if (evt.keyCode === 13) {
+                    evt.preventDefault();
+                    evt.target.blur();
+                    valueAccessor().call(viewModel);
+                }
+            });
+        }
+    };
+
     ko.applyBindings(new todoViewModel());
     setNavActive();
 });
@@ -38,9 +50,10 @@ function todoViewModel() {
     var self = this;
     self.isUserLoggedIn = ko.observable(Application.isUserLoggedIn());
     self.todos = Application.usersTodos;
-    self.itemChanged = function (todo) {
+    self.itemChanged = function (todo, event) {
         Application.updateTodo(todo);
-        return true;
+        if (event.target.type == "checkbox")
+            return true;
     };
     self.clearTodo = function (data, event) {
         if (data === self.selectedTodo()) {
@@ -98,8 +111,10 @@ function sortTodos(todos) {
         // verify all todos are returned
         if (results.length == todos.length)
             return results;
-        else
+        else {
+            $.removeCookie(CSO);
             return todos;
+        }
     }
     else
         return todos;
@@ -213,8 +228,9 @@ Application = {
                 Application.selectedTodo(obTodo);
 
                 var sortOrder = Application.getTodoOrder();
-                if (sortOrder && sortOrder.length == 0) {
+                if (!sortOrder || sortOrder.length == 0) {
                     Application.setTodoOrder();
+                    sortOrder = Application.getTodoOrder();
                 }
 
                 var newOrder = sortOrder.splice(0, 0, obTodo.id);
@@ -239,8 +255,8 @@ Application = {
         else {
             var options = {
                 data: {
-                    description: todo.description,
-                    is_complete: todo.is_complete
+                    description: todo.description(),
+                    is_complete: todo.is_complete()
                 },
                 todoId: todo.id,
                 success: function (t) {
