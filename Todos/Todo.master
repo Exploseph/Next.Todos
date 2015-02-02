@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+    
 <head runat="server">
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    </asp:ContentPlaceHolder>    
     <link href="CSS/bootstrap.css" rel="stylesheet" />
     <link href="CSS/todo.css" rel="stylesheet" />
     <link href="CSS/jquery-ui.min.css" rel="stylesheet" />
@@ -26,9 +27,10 @@
                 <asp:ScriptReference Path="~/Scripts/todo.js" />
                 <asp:ScriptReference Path="~/Scripts/validation.js" />
                 <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js" />                       
+                <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />  
             </Scripts>
         </asp:ScriptManager>
-        <nav class="navbar navbar-inverse">            
+        <nav class="navbar navbar-inverse navbar-fixed-top">            
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -41,7 +43,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/">Home</a></li>                        
+                        <li><a href="/">Home</a></li>                                                
                         <li data-bind="template: 'signupTemplate'"></li>
                         <li data-bind="template: 'loginTemplate'"></li>
                         <li data-bind="template: 'signOutTemplate'"></li>                       

@@ -1,4 +1,5 @@
 ﻿var CUC = 'cuc';
+var CSO = 'cso';
 var FORMID = "todosForm";
 var EMAIL_CTL = "email";
 var PASS_CTL = "password";
@@ -6,7 +7,7 @@ var ERROR_CTL = "errorContainer";
 
 $(document).ready(function () {
     ko.bindingHandlers.sortable.options.handle = ".drag-handle";
-    // Show hide edit
+    
     ko.bindingHandlers.visibleAndSelect = {
         update: function (element, valueAccessor) {
             ko.bindingHandlers.visible.update(element, valueAccessor);
@@ -15,6 +16,17 @@ $(document).ready(function () {
                     $(element).find("input").focus().select();
                 }, 0);
             }
+        }
+    };
+
+    ko.bindingHandlers.fadeVisible = {
+        init: function (element, valueAccessor) {            
+            var value = valueAccessor();
+            $(element).toggle(ko.utils.unwrapObservable(value));
+        },
+        update: function (element, valueAccessor) {            
+            var value = valueAccessor();
+            ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
         }
     };
 
@@ -46,6 +58,13 @@ function todoViewModel() {
         var todo = new observableTodo(null, "", false);
         Application.addTodo(todo);
     }
+    self.moveCallback = function (args) {
+        if (Application.usersTodos().length > 0) {
+            var sortOrder = $.map(Application.usersTodos(), function (val, i) { return val.id; });
+            Application.setTodoOrder(sortOrder);            
+        }
+    }
+    self.showCompleted = ko.observable(true);
 }
 
 function observableTodo(id, description, is_complete) {
@@ -59,6 +78,32 @@ function setNavActive() {
         $('#navbar li').first().addClass("active");
     else
         $('#navbar a[href^="/' + location.pathname.split("/")[1] + "/" + location.pathname.split("/")[2] + '"]').parent().addClass('active');
+}
+
+function sortTodos(todos) {
+    var order = Application.getTodoOrder();
+    if (order && order.length > 0) {
+        results = [];
+        $.each(order, function (i, key) {
+            var found = false;
+            $.each(todos, function (j, item) {
+                if (!found && item.id == key) {
+                    results.push(item);
+                    found = true;
+                    return false;
+                } else
+                    return true;
+            })
+        })
+
+        // verify all todos are returned
+        if (results.length == todos.length)
+            return results;
+        else
+            return todos;
+    }
+    else
+        return todos;
 }
 
 Application = {
@@ -134,10 +179,19 @@ Application = {
         return ($.cookie(CUC)) ? JSON.parse($.cookie(CUC)) : null;
     },
 
+    getTodoOrder: function () {
+        return ($.cookie(CSO)) ? JSON.parse($.cookie(CSO)) : null;
+    },
+
+    setTodoOrder: function (sortOrder) {
+        $.cookie(CSO, JSON.stringify(sortOrder), { expires: 7, path: '/' });
+    },
+
     loadTodos: function () {
         var options = {
             success: function (data) {
-                $.each(data, function (i, o) { Application.usersTodos.push(new observableTodo(o.id, o.description, o.is_complete)); });
+                var sortedData = sortTodos(data);
+                $.each(sortedData, function (i, o) { Application.usersTodos.push(new observableTodo(o.id, o.description, o.is_complete)); });
             },
             error: function (data) {
                 alert('Error getting todos');
@@ -157,6 +211,12 @@ Application = {
                 var obTodo = new observableTodo(newTodo.id, newTodo.description, newTodo.is_complete);
                 Application.usersTodos.splice(0, 0, obTodo);
                 Application.selectedTodo(obTodo);
+
+                var sortOrder = Application.getTodoOrder();
+                if (sortOrder) {
+                    var newOrder = sortOrder.splice(0, 0, obTodo.id);
+                    Application.setTodoOrder(newOrder);
+                }
             },
             error: function () {
                 alert('Error adding todo');

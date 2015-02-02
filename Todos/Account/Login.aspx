@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="form-horizontal">
+    <div class="form-horizontal todo-login-forms">
         <fieldset>
             <div class="control-group">
                 <div id="errorContainer" class="errorMessage"></div>
@@ -11,7 +11,7 @@
             <div class="control-group">
                 <label class="control-label" for="email">Email*</label>
                 <div class="controls">
-                    <input type="text" class="input-xlarge" name="email" id="email" />
+                    <input type="text" class="input-xlarge" name="email" id="email" autofocus="autofocus" />
                 </div>
             </div>
             <div class="control-group">
